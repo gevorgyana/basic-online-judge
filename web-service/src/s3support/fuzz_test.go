@@ -40,5 +40,8 @@ func TestFoo(t *testing.T) {
 	var fileName string
 	f.Fuzz(&fileName)
 
-	s3support.StoreFileByUUID(id, buffer, fileName)
+	err := s3support.StoreFileByUUID(id, buffer, fileName)
+	if err != nil {
+		panic(err)
+	}
 }
