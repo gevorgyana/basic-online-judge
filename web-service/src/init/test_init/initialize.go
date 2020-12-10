@@ -1,11 +1,9 @@
-package init
+package test_init
 
 import (
 	"log"
-	api "web-service/src/api/controllers"
 	config "web-service/src/config"
 
-	s3support "web-service/src/s3support"
 	containers "web-service/src/storage_container"
 	utils "web-service/src/utils"
 )
@@ -15,7 +13,7 @@ var (
 	debugLogger *log.Logger
 )
 
-func Configure() {
+func ConfigureTestingEnvironment() {
 	if err := config.ReadConfig(config.ConfigPath); err != nil {
 		log.Fatalln("Unable to read program config from", config.ConfigPath, err)
 	}
@@ -36,6 +34,6 @@ func Configure() {
 		errorLogger.Fatalln("Unable to open db at", config.Internal.DbPath, err)
 	}
 
-	api.InitializeControllers(db)
-	s3support.InitializeS3Support()
+	// api.InitializeControllers(db)
+	// s3support.InitializeS3Support()
 }
