@@ -1,4 +1,4 @@
-package s3support
+package s3support_test
 
 import (
 	"bytes"
@@ -7,7 +7,8 @@ import (
 	"runtime"
 	"testing"
 
-	initialize "web-service/src/init/test_init"
+	initialize "web-service/src/init"
+	s3support "web-service/src/s3support"
 
 	fuzz "github.com/google/gofuzz"
 	guuid "github.com/google/uuid"
@@ -20,8 +21,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		panic(err)
 	}
-	initialize.ConfigureTestingEnvironmentForS3Support()
-	InitializeS3Support()
+	initialize.Configure()
 	os.Exit(m.Run())
 }
 
@@ -40,5 +40,5 @@ func TestFoo(t *testing.T) {
 	var fileName string
 	f.Fuzz(&fileName)
 
-	StoreFileByUUID(id, buffer, fileName)
+	s3support.StoreFileByUUID(id, buffer, fileName)
 }
