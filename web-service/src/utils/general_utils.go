@@ -15,7 +15,7 @@ type Pair struct {
 func CreateFileIfNotExists(pathStr string) (*os.File, error) {
 	dir, _ := path.Split(pathStr)
 	if _, err := os.Stat(pathStr); os.IsNotExist(err) {
-		os.Mkdir(dir, os.ModePerm)
+		os.MkdirAll(dir, os.ModePerm)
 	}
 	fd, err := os.OpenFile(pathStr, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, os.ModePerm)
 	if err != nil {
