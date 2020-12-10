@@ -7,6 +7,10 @@ import (
 	utils "web-service/src/utils"
 )
 
+const (
+	ConfigPath = "config/main_config.json"
+)
+
 type ServerConfiguration struct {
 	Port string
 }

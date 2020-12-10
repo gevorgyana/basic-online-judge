@@ -49,8 +49,11 @@ func InitializeS3Support() {
 	warningLogger = utils.GetLoggerPkgScoped("WARNING: ", diagFile)
 	errorLogger = utils.GetLoggerPkgScoped("ERROR: ", diagFile)
 	debugLogger = utils.GetLoggerPkgScoped("DEBUG: ", diagFile)
+
 	rootCtx = context.Background()
 	bucketName = config.Minio.BucketName
+
+	fmt.Println("con str: ", config.Minio.ConnectionString)
 
 	minioClient, err = minio.New(config.Minio.ConnectionString, &minio.Options{
 		Creds:  credentials.NewStaticV4(config.Minio.AccessKeyID, config.Minio.SecretAccessKey, ""),
