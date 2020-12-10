@@ -9,6 +9,7 @@ import (
 	s3support "web-service/src/s3support"
 	stale_daemon "web-service/src/stale_daemon"
 	containers "web-service/src/storage_container"
+	nlp "web-service/src/text_similarity"
 	utils "web-service/src/utils"
 )
 
@@ -42,7 +43,12 @@ func configure() {
 		errorLogger.Fatalln("Unable to open db at", config.Internal.DbPath, err)
 	}
 
-	api.InitializeControllers(db)
+	nlpCore := nlp.NewPyhonNLP(
+		config.Internal.PythonDifferenceScriptPath,
+		config.Internal.PythonSimilarityScriptPath,
+	)
+
+	api.InitializeControllers(db, nlpCore)
 	s3support.InitializeS3Support()
 
 	stale_daemon.InitializeDaemon(db, config.Internal.RefreshStaleDataPeriod)

@@ -9,6 +9,7 @@ import (
 	guuid "github.com/google/uuid"
 	config "web-service/src/config"
 	containers "web-service/src/storage_container"
+	nlp "web-service/src/text_similarity"
 	utils "web-service/src/utils"
 )
 
@@ -18,15 +19,17 @@ var (
 	debugLogger    *log.Logger
 	uploadFilesDir string
 	db             containers.ClientContainer
+	nlpCore        nlp.NlpModuleInterface
 )
 
-func InitializeControllers(container containers.ClientContainer) {
+func InitializeControllers(container containers.ClientContainer, nlp_core nlp.NlpModuleInterface) {
 	warningLogger = utils.WarningLogger
 	errorLogger = utils.ErrorLogger
 	debugLogger = utils.DebugLogger
 
 	uploadFilesDir = config.Internal.UploadFilesDir
 	db = container
+	nlpCore = nlp_core
 
 	initializeUploadFilesController()
 }

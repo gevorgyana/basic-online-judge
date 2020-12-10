@@ -8,17 +8,15 @@ import (
 	"path"
 	"strings"
 
-	s3support "web-service/src/s3support"
-	nlp "web-service/src/text_similarity"
-
 	guuid "github.com/google/uuid"
+	s3support "web-service/src/s3support"
 )
 
 func prepareViewForUUID(id guuid.UUID) {
 	db.SavePendingClient(id, "")
 
 	var clientDir = path.Join(uploadFilesDir, id.String())
-	res, err := nlp.GetPairwiseSimilarity(clientDir)
+	res, err := nlpCore.GetPairwiseSimilarity(clientDir)
 	if err != nil {
 		db.SaveErrorClient(id, err.Error())
 		errorLogger.Println(err)

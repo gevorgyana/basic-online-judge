@@ -7,10 +7,8 @@ import (
 	"net/http"
 	"net/url"
 
-	s3support "web-service/src/s3support"
-
 	guuid "github.com/google/uuid"
-	nlp "web-service/src/text_similarity"
+	s3support "web-service/src/s3support"
 )
 
 func CompareFilesHandler(w http.ResponseWriter, req *http.Request) {
@@ -79,7 +77,7 @@ func CompareFilesHandler(w http.ResponseWriter, req *http.Request) {
 		option, html := urlParsedQuery.Get("option"), urlParsedQuery.Get("html")
 		editcost, timeout := urlParsedQuery.Get("editcost"), urlParsedQuery.Get("timeout")
 
-		res, err := nlp.GetFilesDifference(contentBuf, fileLen, option, html, editcost, timeout)
+		res, err := nlpCore.GetFilesDifference(contentBuf, fileLen, option, html, editcost, timeout)
 		if err != nil {
 			body["Message"] = fmt.Sprintf("Unable to get content difference for %s, %s", fileNames[0], fileNames[1])
 			body["Error"] = err.Error()
