@@ -13,7 +13,7 @@ var (
 	debugLogger *log.Logger
 )
 
-func ConfigureTestingEnvironment() {
+func ConfigureTestingEnvironmentForS3Support() {
 	if err := config.ReadConfig(config.ConfigPath); err != nil {
 		log.Fatalln("Unable to read program config from", config.ConfigPath, err)
 	}
@@ -35,5 +35,4 @@ func ConfigureTestingEnvironment() {
 	}
 
 	// api.InitializeControllers(db)
-	// s3support.InitializeS3Support()
 }
