@@ -21,6 +21,7 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		panic(err)
 	}
+	// TODO stop here if hangs. most probably, minio is not available
 	initialize.Configure()
 	os.Exit(m.Run())
 }
